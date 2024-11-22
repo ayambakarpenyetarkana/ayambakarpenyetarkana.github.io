@@ -19,6 +19,7 @@
     flex-wrap: wrap;
     gap: 30px;
     justify-content: center;
+    margin: 15px;
 }
 
 .menu-item {
