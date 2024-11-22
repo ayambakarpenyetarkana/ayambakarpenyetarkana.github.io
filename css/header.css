@@ -1,0 +1,190 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+
+.top-bar-responsive {
+display: none;
+
+}
+
+/* Top Bar Styling */
+.top-bar {
+    background-color: #024610;
+    color: #ffffff;
+    padding: 5px 10px;
+    font-size: 0.9em;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.top-bar span {
+    margin: 0 10px;
+}
+
+.top-bar a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.top-bar a:hover{
+    color: #c9994c;
+}
+
+.address {
+    margin-left: auto;
+}
+
+/* Main Header Styling */
+.header {
+    font-family: "Signika", Arial, sans-serif;
+    background-color: #ffffff;
+    padding: 15px 20px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header .navbar {
+    display: flex;
+    align-items: center; /* Menyelaraskan elemen secara vertikal */
+    justify-content: space-between; /* Memastikan elemen di navbar terdistribusi dengan baik */
+}
+
+/* Logo and Brand Name */
+.brand {
+    display: flex; /* Menggunakan flexbox untuk menyelaraskan logo dan teks */
+    align-items: center; /* Menyelaraskan logo dan teks secara vertikal */
+    gap: 10px; /* Jarak antara logo dan nama brand */
+}
+
+/* Logo Styling */
+.brand-logo {
+    width: 50px; /* Ukuran logo */
+    height: 50px; /* Ukuran logo */
+    margin-left: 130px;
+}
+
+/* Brand Name Styling */
+.brand-name {
+    font-weight: bold;
+    color: #024610;
+    font-family: "Signika", sans-serif;
+    margin: 0; /* Menghilangkan margin default */
+    line-height: 50px;
+}
+
+/* Navigation Links */
+.nav-links {
+    display: flex;
+    justify-content: center;
+    margin-right: 175px;
+    gap: 30px;
+    font-family: "Signika", sans-serif;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #805700;
+    font-weight: 500;
+    font-size: large;
+    font-family: "Signika", Arial, sans-serif;
+    position: relative;
+}
+
+.nav-links a:hover {
+    color: #024610;
+}
+
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: #024610;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+.profile {
+    cursor: pointer;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    /* Stack top bar items */
+    .top-bar {
+        display: none;
+    }
+
+    /* Top Bar Styling */
+.top-bar-responsive {
+    background-color: #024610;
+    color: #ffffff;
+    padding: 5px 10px;
+    font-size: 0.9em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.top-bar-responsive span {
+    margin: 0 10px;
+}
+
+.top-bar-responsive a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.top-bar-responsive a:hover{
+    color: #c9994c;
+}
+
+    /* Adjust navbar layout */
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    /* Center align brand logo and name */
+    .brand {
+        justify-content: center;
+        width: 100%;
+    }
+
+    /* Stack nav links */
+    .nav-links {
+        justify-content: center;
+        width: 100%;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Further adjustments for very small screens */
+    .brand-name {
+        font-size: 1.2em;
+    }
+
+    .nav-links a {
+        font-size: medium;
+    }
+
+    .search-button {
+        padding: 10px;
+        font-size: 16px;
+    }
+}
