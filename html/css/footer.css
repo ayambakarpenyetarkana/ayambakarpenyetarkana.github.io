@@ -1,0 +1,14 @@
+.footer {
+    background-color: #333; /* Warna latar belakang footer */
+    color: #fff; /* Warna teks footer */
+    text-align: center; /* Teks di tengah */
+    padding: 20px 0; /* Jarak atas dan bawah */
+    position: relative; /* Mengatur posisi relatif */
+    bottom: 0; /* Menempatkan footer di bagian bawah */
+    width: 100%; /* Lebar penuh */
+}
+
+.footer p {
+    margin: 0; /* Menghapus margin default */
+    font-size: 14px; /* Ukuran font */
+}
