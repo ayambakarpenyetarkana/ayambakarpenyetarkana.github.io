@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order - Ayam Arkana</title>
-    <link rel="stylesheet" href="order.css">
+    <title>Order Ayam Bakar</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,40 +12,13 @@
             background-color: #f9f9f9;
         }
         header {
-            background-color: #ff5722;
+            background-color: rgba(0, 125, 23, 0.179);
             color: white;
             padding: 10px 20px;
             text-align: center;
         }
-        nav {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 20px;
-            background-color: #fff;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-        nav .logo {
-            font-size: 20px;
-            font-weight: bold;
-            color: #ff5722;
-        }
-        nav .nav-links {
-            display: flex;
-            gap: 15px;
-        }
-        nav .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-size: 16px;
-        }
-        nav .nav-links a:hover {
-            color: #ff5722;
-        }
         .container {
-            max-width: 1200px;
+            max-width: 600px;
             margin: 20px auto;
             background: white;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -83,7 +55,7 @@
             align-items: center;
         }
         .menu-actions button {
-            background-color: #ff5722;
+            background-color: rgba(0, 125, 23, 0.179);
             color: white;
             border: none;
             padding: 8px 12px;
@@ -92,7 +64,14 @@
             font-size: 14px;
         }
         .menu-actions button:hover {
-            background-color: #e64a19;
+            background-color: rgba(0, 125, 23, 0.179);
+        }
+        .menu-actions input {
+            width: 40px;
+            text-align: center;
+            margin: 0 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
         }
         .order-summary {
             margin-top: 20px;
@@ -109,21 +88,24 @@
         .order-summary ul li {
             margin-bottom: 5px;
         }
-        .clear-order {
-            margin-top: 10px;
-            background-color: #e64a19;
+        .checkout-button {
+            display: block;
+            width: 100%;
+            background-color: #4caf50;
             color: white;
             border: none;
-            padding: 8px 12px;
+            padding: 10px;
+            text-align: center;
+            font-size: 16px;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 14px;
+            margin-top: 10px;
         }
-        .clear-order:hover {
-            background-color: #d84315;
+        .checkout-button:hover {
+            background-color: #45a049;
         }
         footer {
-            background-color: #ff5722;
+            background-color: rgba(0, 125, 23, 0.179);
             color: white;
             text-align: center;
             padding: 10px;
@@ -133,45 +115,19 @@
 </head>
 <body>
     <header>
-        <h1>Order Ayam Arkana</h1>
+        <h1>Order Ayam Bakar</h1>
     </header>
-    <nav>
-        <div class="logo">Order</div>
-        <div class="nav-links">
-            <a href="#">Beranda</a>
-            <a href="#">Pesanan</a>
-            <a href="#">Akun</a>
-        </div>
-    </nav>
     <div class="container">
         <div class="menu-item">
-            <img src="https://via.placeholder.com/80" alt="Menu Item">
+            <img src="https://via.placeholder.com/80" alt="Ayam Bakar">
             <div class="menu-details">
-                <h3>Nasi Goreng Spesial</h3>
-                <p>Rp 20.000</p>
+                <h3>Ayam Bakar</h3>
+                <p>Rp 25.000</p>
             </div>
             <div class="menu-actions">
-                <button onclick="addToOrder('Nasi Goreng Spesial', 20000)">Tambah</button>
-            </div>
-        </div>
-        <div class="menu-item">
-            <img src="https://via.placeholder.com/80" alt="Menu Item">
-            <div class="menu-details">
-                <h3>Mie Ayam</h3>
-                <p>Rp 15.000</p>
-            </div>
-            <div class="menu-actions">
-                <button onclick="addToOrder('Mie Ayam', 15000)">Tambah</button>
-            </div>
-        </div>
-        <div class="menu-item">
-            <img src="https://via.placeholder.com/80" alt="Menu Item">
-            <div class="menu-details">
-                <h3>Es Teh Manis</h3>
-                <p>Rp 5.000</p>
-            </div>
-            <div class="menu-actions">
-                <button onclick="addToOrder('Es Teh Manis', 5000)">Tambah</button>
+                <button onclick="updateCart('Ayam Bakar', 25000, -1)">-</button>
+                <input type="number" id="AyamBakarQty" value="0" readonly>
+                <button onclick="updateCart('Ayam Bakar', 25000, 1)">+</button>
             </div>
         </div>
 
@@ -179,18 +135,27 @@
             <h2>Ringkasan Pesanan</h2>
             <ul id="order-list"></ul>
             <p><strong>Total:</strong> Rp <span id="total-price">0</span></p>
-              <button class="clear-order" onclick="clearOrder()">Hapus Semua</button>
+            <button class="checkout-button" onclick="checkout()">Checkout</button>
         </div>
     </div>
     <footer>
-        <p>&copy; 2024 Ayam Arkana. All rights reserved.</p>
+        <p>&copy; 2024 Order Ayam Bakar. All rights reserved.</p>
     </footer>
 
     <script>
-        let order = [];
+        let cart = {};
 
-        function addToOrder(itemName, itemPrice) {
-            order.push({ name: itemName, price: itemPrice });
+        function updateCart(itemName, itemPrice, qtyChange) {
+            if (!cart[itemName]) {
+                cart[itemName] = { price: itemPrice, quantity: 0 };
+            }
+            cart[itemName].quantity += qtyChange;
+
+            if (cart[itemName].quantity < 0) {
+                cart[itemName].quantity = 0;
+            }
+
+            document.getElementById(`${itemName.replace(/\s+/g, '')}Qty`).value = cart[itemName].quantity;
             updateOrderSummary();
         }
 
@@ -200,19 +165,35 @@
 
             orderList.innerHTML = '';
             let total = 0;
-            order.forEach(item => {
-                const li = document.createElement('li');
-                li.textContent = `${item.name} - Rp ${item.price}`;
-                orderList.appendChild(li);
-                total += item.price;
+
+            Object.keys(cart).forEach(item => {
+                if (cart[item].quantity > 0) {
+                    const li = document.createElement('li');
+                    li.textContent = `${item} x${cart[item].quantity} - Rp ${cart[item].price * cart[item].quantity}`;
+                    orderList.appendChild(li);
+                    total += cart[item].price * cart[item].quantity;
+                }
             });
 
             totalPrice.textContent = total;
         }
 
-        function clearOrder() {
-            order = [];
-            updateOrderSummary();
+        //order//
+        function checkout() {
+            let message = "Halo, saya ingin memesan:\n";
+            let total = 0;
+
+            Object.keys(cart).forEach(item => {
+                if (cart[item].quantity > 0) {
+                    message += `- ${item} x${cart[item].quantity} = Rp ${cart[item].price * cart[item].quantity}\n`;
+                    total += cart[item].price * cart[item].quantity;
+                }
+            });
+
+            message += `\nTotal: Rp ${total}`;
+
+            const whatsappURL = `https://wa.me/+6287821338730?text=${encodeURIComponent(message)}`;
+            window.open(whatsappURL, '_blank');
         }
     </script>
 </body>
