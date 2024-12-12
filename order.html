@@ -136,7 +136,7 @@
                 </div>
                 <div class="menu-actions">
                     <button onclick="updateCart('Ayam Bakar', 25000, -1)">-</button>
-                    <input type="number" id="AyamBakarQty" value="0">
+                    <input type="number" id="AyamBakarQty" value="0" oninput="syncQuantity('Ayam Bakar')">
                     <button onclick="updateCart('Ayam Bakar', 25000, 1)">+</button>
                 </div>
             </div>
@@ -152,7 +152,7 @@
                 </div>
                 <div class="menu-actions">
                     <button onclick="updateCart('Tahu Goreng', 5000, -1)">-</button>
-                    <input type="number" id="TahuGorengQty" value="0">
+                    <input type="number" id="TahuGorengQty" value="0" oninput="syncQuantity('Tahu Goreng')">
                     <button onclick="updateCart('Tahu Goreng', 5000, 1)">+</button>
                 </div>
             </div>
@@ -224,7 +224,10 @@
             }
 
             // Update the quantity in the input field
-            document.getElementById(itemName + 'Qty').value = cart[itemName].quantity;
+            const inputField = document.getElementById(itemName.replace(/\s+/g, '') + 'Qty');
+            if (inputField) {
+                inputField.value = cart[itemName].quantity;
+            }
 
             // Update the order summary
             updateOrderSummary();
