@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Ayam Bakar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        header {
+            background-color: rgba(0, 129, 36, 0.327);
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .menu-section {
+            margin-bottom: 20px;
+        }
+        .menu-section h2 {
+            margin-bottom: 10px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 5px;
+        }
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .menu-item img {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+        }
+        .menu-details {
+            flex: 1;
+            margin-left: 15px;
+        }
+        .menu-details h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .menu-details p {
+            margin: 5px 0;
+            color: #666;
+        }
+        .menu-actions {
+            display: flex;
+            align-items: center;
+        }
+        .menu-actions button {
+            background-color: rgba(0, 129, 36, 0.327);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .menu-actions button:hover {
+            background-color: rgba(0, 129, 36, 0.327);
+        }
+        .menu-actions input {
+            width: 40px;
+            text-align: center;
+            margin: 0 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .order-summary {
+            margin-top: 20px;
+            border-top: 2px solid #ddd;
+            padding-top: 10px;
+        }
+        .order-summary h2 {
+            margin: 0 0 10px 0;
+        }
+        .order-summary ul {
+            list-style: none;
+            padding: 0;
+        }
+        .order-summary ul li {
+            margin-bottom: 5px;
+        }
+        .checkout-button {
+            display: block;
+            width: 100%;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px;
+            text-align: center;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .checkout-button:hover {
+            background-color: #45a049;
+        }
+        footer {
+            background-color: rgba(0, 129, 36, 0.327);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Order Ayam Bakar</h1>
+    </header>
+    <div class="container">
+        <div class="menu-section">
+            <h2>Menu Utama</h2>
+            <div class="menu-item">
+                <img src="https://via.placeholder.com/80" alt="Ayam Bakar">
+                <div class="menu-details">
+                    <h3>Ayam Bakar</h3>
+                    <p>Rp 25.000</p>
+                </div>
+                <div class="menu-actions">
+                    <button onclick="updateCart('Ayam Bakar', 25000, -1)">-</button>
+                    <input type="number" id="AyamBakarQty" value="0">
+                    <button onclick="updateCart('Ayam Bakar', 25000, 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-section">
+            <h2>Menu Tambahan</h2>
+            <div class="menu-item">
+                <img src="https://via.placeholder.com/80" alt="Tahu Goreng">
+                <div class="menu-details">
+                    <h3>Tahu Goreng</h3>
+                    <p>Rp 5.000</p>
+                </div>
+                <div class="menu-actions">
+                    <button onclick="updateCart('Tahu Goreng', 5000, -1)">-</button>
+                    <input type="number" id="TahuGorengQty" value="0">
+                    <button onclick="updateCart('Tahu Goreng', 5000, 1)">+</button>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="https://via.placeholder.com/80" alt="Tempe Goreng">
+                <div class="menu-details">
+                    <h3>Tempe Goreng</h3>
+                    <p>Rp 5.000</p>
+                </div>
+                <div class="menu-actions">
+                    <button onclick="updateCart('Tempe Goreng', 5000, -1)">-</button>
+                    <input type="number" id="TempeGorengQty" value="0">
+                    <button onclick="updateCart('Tempe Goreng', 5000, 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-section">
+            <h2>Jenis Sambal</h2>
+            <div class="menu-item">
+                <img src="https://via.placeholder.com/80" alt="Sambal Terasi">
+                <div class="menu-details">
+                    <h3>Sambal Terasi</h3>
+                    <p>Rp 3.000</p>
+                </div>
+                <div class="menu-actions">
+                    <button onclick="updateCart('Sambal Terasi', 3000, -1)">-</button>
+                    <input type="number" id="SambalTerasiQty" value="0">
+                    <button onclick="updateCart('Sambal Terasi', 3000, 1)">+</button>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="https://via.placeholder.com/80" alt="Sambal Matah">
+                <div class="menu-details">
+                    <h3>Sambal Matah</h3>
+                    <p>Rp 3.000</p>
+                </div>
+                <div class="menu-actions">
+                    <button onclick="updateCart('Sambal Matah', 3000, -1)">-</button>
+                    <input type="number" id="SambalMatahQty" value="0">
+                    <button onclick="updateCart('Sambal Matah', 3000, 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="order-summary">
+            <h2>Ringkasan Pesanan</h2>
+            <ul id="order-list"></ul>
+            <p><strong>Total:</strong> Rp <span id="total-price">0</span></p>
+            <button class="checkout-button" onclick="sendWhatsApp()">Checkout via WhatsApp</button>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Order Ayam Bakar. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let cart = {};
+
+        function updateCart(itemName, itemPrice, qtyChange) {
+            if (!cart[itemName]) {
+                cart[itemName] = { price: itemPrice, quantity: 0 };
+            }
+            cart[itemName].quantity += qtyChange;
+
+            // Prevent negative quantities
+            if (cart[itemName].quantity < 0) {
+                cart[itemName].quantity = 0;
+            }
+
+            // Update the quantity in the input field
+            document.getElementById(itemName + 'Qty').value = cart[itemName].quantity;
+
+            // Update the order summary
+            updateOrderSummary();
+        }
+
+        function updateOrderSummary() {
+            let total = 0;
+            let orderList = document.getElementById('order-list');
+            orderList.innerHTML = ''; // Clear previous list
+
+            // Add each item in the cart to the order list
+            for (let item in cart) {
+                if (cart[item].quantity > 0) {
+                    total += cart[item].price * cart[item].quantity;
+                    let listItem = document.createElement('li');
+                    listItem.textContent = `${item} x ${cart[item].quantity} = Rp ${cart[item].price * cart[item].quantity}`;
+                    orderList.appendChild(listItem);
+                }
+            }
+
+            // Update the total price
+            document.getElementById('total-price').textContent = total.toLocaleString();
+        }
+
+        function sendWhatsApp() {
+            if (Object.keys(cart).length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+
+            let message = "Pesanan Anda:\n\n";
+            let total = 0;
+
+            // Generate order details
+            for (let item in cart) {
+                if (cart[item].quantity > 0) {
+                    let itemTotal = cart[item].price * cart[item].quantity;
+                    message += `${item} x ${cart[item].quantity} = Rp ${itemTotal}\n`;
+                    total += itemTotal;
+                }
+            }
+
+            message += `\nTotal: Rp ${total.toLocaleString()}\n\nSilakan konfirmasi pesanan anda.`;
+
+            // Encode the message for WhatsApp URL
+            let encodedMessage = encodeURIComponent(message);
+
+            // Ganti nomor ini dengan nomor WhatsApp Anda
+            let phoneNumber = '+6287821338730'; 
+            let url = `https://wa.me/${+6287821338730}?text=${encodedMessage}`;
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+/* Reset dasar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Kontainer Peta */
+.maps-container {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    padding: 20px;
+    max-width: 1200px;
+    margin: 20px auto; /* Margin otomatis untuk pusat kontainer */
+    text-align: center; /* Menyelaraskan teks di tengah */
+}
+
+/* Judul Peta */
+.maps-title {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #5f72be;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+/* Bingkai iframe Google Maps */
+.map-iframe {
+    border-radius: 15px;
+    overflow: hidden; /* Menghindari overflow pada bingkai */
+}
+
+/* Styling untuk iframe */
+.map-iframe iframe {
+    border: none;
+    width: 100%;
+    height: 500px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* Efek hover pada iframe */
+.map-iframe iframe:hover {
+    transform: scale(1.02);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Deskripsi Peta */
+.maps-description {
+    margin-top: 20px;
+    font-size: 1.2em;
+    color: #333;
+}
+
+/* Responsivitas untuk layar kecil */
+@media (max-width: 768px) {
+    .maps-title {
+        font-size: 2em; /* Ukuran font lebih kecil untuk layar kecil */
+    }
+    .map-iframe iframe {
+        height: 300px; /* Menyesuaikan tinggi iframe pada layar kecil */
+    }
+    
+    .maps-description {
+        font-size: 1em; /* Ukuran font deskripsi lebih kecil */
+    }
+}
