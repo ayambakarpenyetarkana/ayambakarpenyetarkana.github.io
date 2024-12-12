@@ -12,7 +12,7 @@
             background-color: #f9f9f9;
         }
         header {
-            background-color: rgba(0, 125, 23, 0.179);
+            background-color: rgba(0, 129, 36, 0.327);
             color: white;
             padding: 10px 20px;
             text-align: center;
@@ -24,6 +24,14 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             padding: 20px;
             border-radius: 8px;
+        }
+        .menu-section {
+            margin-bottom: 20px;
+        }
+        .menu-section h2 {
+            margin-bottom: 10px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 5px;
         }
         .menu-item {
             display: flex;
@@ -55,7 +63,7 @@
             align-items: center;
         }
         .menu-actions button {
-            background-color: rgba(0, 125, 23, 0.179);
+            background-color: rgba(0, 129, 36, 0.327);
             color: white;
             border: none;
             padding: 8px 12px;
@@ -64,7 +72,7 @@
             font-size: 14px;
         }
         .menu-actions button:hover {
-            background-color: rgba(0, 125, 23, 0.179);
+            background-color: rgba(0, 129, 36, 0.327);
         }
         .menu-actions input {
             width: 40px;
@@ -105,7 +113,7 @@
             background-color: #45a049;
         }
         footer {
-            background-color: rgba(0, 125, 23, 0.179);
+            background-color: rgba(0, 129, 36, 0.327);
             color: white;
             text-align: center;
             padding: 10px;
@@ -118,16 +126,75 @@
         <h1>Order Ayam Bakar</h1>
     </header>
     <div class="container">
-        <div class="menu-item">
-            <img src="https://via.placeholder.com/80" alt="Ayam Bakar">
-            <div class="menu-details">
-                <h3>Ayam Bakar</h3>
-                <p>Rp 25.000</p>
+        <div class="menu-section">
+            <h2>Menu Utama</h2>
+            <div class="menu-item">
+                <img src="https://via.placeholder.com/80" alt="Ayam Bakar">
+                <div class="menu-details">
+                    <h3>Ayam Bakar</h3>
+                    <p>Rp 25.000</p>
+                </div>
+                <div class="menu-actions">
+                    <button onclick="updateCart('Ayam Bakar', 25000, -1)">-</button>
+                    <input type="number" id="AyamBakarQty" value="0">
+                    <button onclick="updateCart('Ayam Bakar', 25000, 1)">+</button>
+                </div>
             </div>
-            <div class="menu-actions">
-                <button onclick="updateCart('Ayam Bakar', 25000, -1)">-</button>
-                <input type="number" id="AyamBakarQty" value="0" readonly>
-                <button onclick="updateCart('Ayam Bakar', 25000, 1)">+</button>
+        </div>
+
+        <div class="menu-section">
+            <h2>Menu Tambahan</h2>
+            <div class="menu-item">
+                <img src="https://via.placeholder.com/80" alt="Tahu Goreng">
+                <div class="menu-details">
+                    <h3>Tahu Goreng</h3>
+                    <p>Rp 5.000</p>
+                </div>
+                <div class="menu-actions">
+                    <button onclick="updateCart('Tahu Goreng', 5000, -1)">-</button>
+                    <input type="number" id="TahuGorengQty" value="0">
+                    <button onclick="updateCart('Tahu Goreng', 5000, 1)">+</button>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="https://via.placeholder.com/80" alt="Tempe Goreng">
+                <div class="menu-details">
+                    <h3>Tempe Goreng</h3>
+                    <p>Rp 5.000</p>
+                </div>
+                <div class="menu-actions">
+                    <button onclick="updateCart('Tempe Goreng', 5000, -1)">-</button>
+                    <input type="number" id="TempeGorengQty" value="0">
+                    <button onclick="updateCart('Tempe Goreng', 5000, 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-section">
+            <h2>Jenis Sambal</h2>
+            <div class="menu-item">
+                <img src="https://via.placeholder.com/80" alt="Sambal Terasi">
+                <div class="menu-details">
+                    <h3>Sambal Terasi</h3>
+                    <p>Rp 3.000</p>
+                </div>
+                <div class="menu-actions">
+                    <button onclick="updateCart('Sambal Terasi', 3000, -1)">-</button>
+                    <input type="number" id="SambalTerasiQty" value="0">
+                    <button onclick="updateCart('Sambal Terasi', 3000, 1)">+</button>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="https://via.placeholder.com/80" alt="Sambal Matah">
+                <div class="menu-details">
+                    <h3>Sambal Matah</h3>
+                    <p>Rp 3.000</p>
+                </div>
+                <div class="menu-actions">
+                    <button onclick="updateCart('Sambal Matah', 3000, -1)">-</button>
+                    <input type="number" id="SambalMatahQty" value="0">
+                    <button onclick="updateCart('Sambal Matah', 3000, 1)">+</button>
+                </div>
             </div>
         </div>
 
@@ -135,7 +202,7 @@
             <h2>Ringkasan Pesanan</h2>
             <ul id="order-list"></ul>
             <p><strong>Total:</strong> Rp <span id="total-price">0</span></p>
-            <button class="checkout-button" onclick="checkout()">Checkout</button>
+            <button class="checkout-button" onclick="sendWhatsApp()">Checkout via WhatsApp</button>
         </div>
     </div>
     <footer>
@@ -151,49 +218,64 @@
             }
             cart[itemName].quantity += qtyChange;
 
+            // Prevent negative quantities
             if (cart[itemName].quantity < 0) {
                 cart[itemName].quantity = 0;
             }
 
-            document.getElementById(`${itemName.replace(/\s+/g, '')}Qty`).value = cart[itemName].quantity;
+            // Update the quantity in the input field
+            document.getElementById(itemName + 'Qty').value = cart[itemName].quantity;
+
+            // Update the order summary
             updateOrderSummary();
         }
 
         function updateOrderSummary() {
-            const orderList = document.getElementById('order-list');
-            const totalPrice = document.getElementById('total-price');
-
-            orderList.innerHTML = '';
             let total = 0;
+            let orderList = document.getElementById('order-list');
+            orderList.innerHTML = ''; // Clear previous list
 
-            Object.keys(cart).forEach(item => {
+            // Add each item in the cart to the order list
+            for (let item in cart) {
                 if (cart[item].quantity > 0) {
-                    const li = document.createElement('li');
-                    li.textContent = `${item} x${cart[item].quantity} - Rp ${cart[item].price * cart[item].quantity}`;
-                    orderList.appendChild(li);
                     total += cart[item].price * cart[item].quantity;
+                    let listItem = document.createElement('li');
+                    listItem.textContent = `${item} x ${cart[item].quantity} = Rp ${cart[item].price * cart[item].quantity}`;
+                    orderList.appendChild(listItem);
                 }
-            });
+            }
 
-            totalPrice.textContent = total;
+            // Update the total price
+            document.getElementById('total-price').textContent = total.toLocaleString();
         }
 
-        //order//
-        function checkout() {
-            let message = "Halo, saya ingin memesan:\n";
+        function sendWhatsApp() {
+            if (Object.keys(cart).length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+
+            let message = "Pesanan Anda:\n\n";
             let total = 0;
 
-            Object.keys(cart).forEach(item => {
+            // Generate order details
+            for (let item in cart) {
                 if (cart[item].quantity > 0) {
-                    message += `- ${item} x${cart[item].quantity} = Rp ${cart[item].price * cart[item].quantity}\n`;
-                    total += cart[item].price * cart[item].quantity;
+                    let itemTotal = cart[item].price * cart[item].quantity;
+                    message += `${item} x ${cart[item].quantity} = Rp ${itemTotal}\n`;
+                    total += itemTotal;
                 }
-            });
+            }
 
-            message += `\nTotal: Rp ${total}`;
+            message += `\nTotal: Rp ${total.toLocaleString()}\n\nSilakan konfirmasi pesanan anda.`;
 
-            const whatsappURL = `https://wa.me/+6287821338730?text=${encodeURIComponent(message)}`;
-            window.open(whatsappURL, '_blank');
+            // Encode the message for WhatsApp URL
+            let encodedMessage = encodeURIComponent(message);
+
+            // Ganti nomor ini dengan nomor WhatsApp Anda
+            let phoneNumber = '6281234567890'; 
+            let url = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            window.open(url, '_blank');
         }
     </script>
 </body>
