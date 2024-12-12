@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order - Ayam Arkana</title>
+    <link rel="stylesheet" href="order.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        header {
+            background-color: #ff5722;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        nav .logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff5722;
+        }
+        nav .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+        nav .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+        }
+        nav .nav-links a:hover {
+            color: #ff5722;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .menu-item img {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+        }
+        .menu-details {
+            flex: 1;
+            margin-left: 15px;
+        }
+        .menu-details h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .menu-details p {
+            margin: 5px 0;
+            color: #666;
+        }
+        .menu-actions {
+            display: flex;
+            align-items: center;
+        }
+        .menu-actions button {
+            background-color: #ff5722;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .menu-actions button:hover {
+            background-color: #e64a19;
+        }
+        .order-summary {
+            margin-top: 20px;
+            border-top: 2px solid #ddd;
+            padding-top: 10px;
+        }
+        .order-summary h2 {
+            margin: 0 0 10px 0;
+        }
+        .order-summary ul {
+            list-style: none;
+            padding: 0;
+        }
+        .order-summary ul li {
+            margin-bottom: 5px;
+        }
+        .clear-order {
+            margin-top: 10px;
+            background-color: #e64a19;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .clear-order:hover {
+            background-color: #d84315;
+        }
+        footer {
+            background-color: #ff5722;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Order Ayam Arkana</h1>
+    </header>
+    <nav>
+        <div class="logo">Order</div>
+        <div class="nav-links">
+            <a href="#">Beranda</a>
+            <a href="#">Pesanan</a>
+            <a href="#">Akun</a>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="menu-item">
+            <img src="https://via.placeholder.com/80" alt="Menu Item">
+            <div class="menu-details">
+                <h3>Nasi Goreng Spesial</h3>
+                <p>Rp 20.000</p>
+            </div>
+            <div class="menu-actions">
+                <button onclick="addToOrder('Nasi Goreng Spesial', 20000)">Tambah</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <img src="https://via.placeholder.com/80" alt="Menu Item">
+            <div class="menu-details">
+                <h3>Mie Ayam</h3>
+                <p>Rp 15.000</p>
+            </div>
+            <div class="menu-actions">
+                <button onclick="addToOrder('Mie Ayam', 15000)">Tambah</button>
+            </div>
+        </div>
+        <div class="menu-item">
+            <img src="https://via.placeholder.com/80" alt="Menu Item">
+            <div class="menu-details">
+                <h3>Es Teh Manis</h3>
+                <p>Rp 5.000</p>
+            </div>
+            <div class="menu-actions">
+                <button onclick="addToOrder('Es Teh Manis', 5000)">Tambah</button>
+            </div>
+        </div>
+
+        <div class="order-summary">
+            <h2>Ringkasan Pesanan</h2>
+            <ul id="order-list"></ul>
+            <p><strong>Total:</strong> Rp <span id="total-price">0</span></p>
+              <button class="clear-order" onclick="clearOrder()">Hapus Semua</button>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Ayam Arkana. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let order = [];
+
+        function addToOrder(itemName, itemPrice) {
+            order.push({ name: itemName, price: itemPrice });
+            updateOrderSummary();
+        }
+
+        function updateOrderSummary() {
+            const orderList = document.getElementById('order-list');
+            const totalPrice = document.getElementById('total-price');
+
+            orderList.innerHTML = '';
+            let total = 0;
+            order.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = `${item.name} - Rp ${item.price}`;
+                orderList.appendChild(li);
+                total += item.price;
+            });
+
+            totalPrice.textContent = total;
+        }
+
+        function clearOrder() {
+            order = [];
+            updateOrderSummary();
+        }
+    </script>
+</body>
+</html>
